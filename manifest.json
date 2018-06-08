@@ -30,7 +30,7 @@
 	// 权限申请
 	"permissions":
 	[
-		"declarativeContent"
+      "tabs"
 	],
 	"background":
 	{
