@@ -1,5 +1,7 @@
 $(function () {
-    //init() 根据chrome.storage中的配置显示后缀配置和正则匹配设置
+    //show_config() 根据chrome.storage.local中的配置显示后缀配置和正则匹配设置
+    init_config();
+
     //规则按钮事件
     $('body').on('click', ".removeclass", function (e) {
         var a = $(this).attr('class');
@@ -22,12 +24,32 @@ $(function () {
     })
     //设置保存按钮事件
     $('#save_button').click(function () {
-        var current_url = '';
-        var current_html = '';
-        var suffix_config = null;
-        var rule_regexp = null;
+        var suffix = new Array();
+        var regexp = new Array();
+        var execlude = new Array();
+
+        var suffix_num = $('input[name="suffix"]').length;
+        var regexp_num = $('input[name="rule_regexp"]').length;
+        var execlude_num = $('input[name="execlude"]').length;
+        var i;
+        for (i = 0; i < suffix_num; i++) {
+            suffix[i] = $('input[name="suffix"]:eq(' + [i] + ')').val();
+            console.log(suffix[i]);
+        }
+        for (i = 0; i < regexp_num; i++) {
+            regexp[i] = $('input[name="rule_regexp"]:eq(' + [i] + ')').val();
+            console.log(regexp[i]);
+        }
+        for (i = 0; i < execlude_num; i++) {
+            execlude[i] = $('input[name="execlude"]:eq(' + [i] + ')').val();
+            console.log(execlude[i]);
+        }
         //检测配置是否正确，不正确则提醒用户重新设置
         //TODO
+        var storage=chrome.storage.local;
+        storage.set({'suffix':suffix});
+        storage.set({'regexp':regexp});
+        storage.set({'execlude':execlude});
     });
 });
 
@@ -54,6 +76,21 @@ function add_execlude(e) {
     $('.focus_execlude').removeClass('focus_execlude');
     $('.execlude_table').append(add);
 }
+
+function init_config(){
+    var storage=chrome.storage.local;
+    storage.get('suffix',function (value) {
+        //显示配置到options.html(刚打开的时候)
+        console.log(value);
+    });
+    storage.get('regexp',function (value) {
+        console.log(value);
+    });
+    storage.get('execlude',function (value) {
+        console.log(value);
+    });
+}
+
 
 function test() {
     console.log('test');
