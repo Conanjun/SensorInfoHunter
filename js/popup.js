@@ -1,4 +1,9 @@
 $(function () {
+    $('#get_url').click(function () {
+        chrome.tabs.getSelected(null, function (tab) {
+            $('#show_url').text(tab.url);
+        })
+    });
     //设置搜索按钮事件
     $('#search_button').click(function () {
         var current_url = '';
@@ -45,6 +50,7 @@ function regexp_analyze(content, rule_regexp) {
 var suffix = new Array();
 var regexp = new Array();
 var execlude = new Array();
+
 
 function init_config() {
     //初始化配置: suffix regexp execlude
