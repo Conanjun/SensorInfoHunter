@@ -79,18 +79,69 @@ function add_execlude(e) {
 
 function init_config(){
     var storage=chrome.storage.local;
+    var temp_suffix = new Array();
     storage.get('suffix',function (value) {
         //显示配置到options.html(刚打开的时候)
-        console.log(value);
+        //console.log(value);
+        show_stor_suffix(value.suffix);
     });
     storage.get('regexp',function (value) {
-        console.log(value);
+        //console.log(value);
+        show_stor_regexp(value.regexp);
     });
     storage.get('execlude',function (value) {
-        console.log(value);
+       // console.log(value);
+       show_stor_execlude(value.execlude)
     });
 }
 
+function show_stor_suffix(data){
+    //console.log(data);
+    var num= data.length;
+    var i,add;
+    for(i=0;i<num;i++){
+        if(i==num-1){
+            add='<tr><td><input type="text" name="suffix" value="'+data[i]+'" class="suffix"/></td><td class="focus"><a href="#" id="add_suffix_button" class="add_suffix show">&nbsp;+</a><a href="#" class="removeclass hide">&nbsp;x</a></td></tr>';
+        }
+        else{
+            add='<tr><td><input type="text" name="suffix" value="'+data[i]+'" class="suffix"/></td><td class=""><a href="#" id="add_suffix_button" class="add_suffix hide">&nbsp;+</a><a href="#" class="removeclass ">&nbsp;x</a></td></tr>';
+        }
+        $('.suffix_table').append(add);
+        
+    }
+}
+
+function show_stor_regexp(data){
+    //console.log(data);
+    var num= data.length;
+    var i,add;
+    for(i=0;i<num;i++){
+        if(i==num-1){
+            add='<tr><td><input type="text" name="rule_regexp" value="'+data[i]+'" class="regexp"/></td><td class="focus"><a href="#" id="add_regexp_button" class="add_regexp show">&nbsp;+</a><a href="#" class="removeclass hide">&nbsp;x</a></td></tr>';
+        }
+        else{
+            add='<tr><td><input type="text" name="rule_regexp" value="'+data[i]+'" class="regexp"/></td><td class=""><a href="#" id="add_regexp_button" class="add_regexp hide">&nbsp;+</a><a href="#" class="removeclass ">&nbsp;x</a></td></tr>';
+        }
+        $('.regexp_table').append(add);
+        
+    }
+}
+
+function show_stor_execlude(data){
+    //console.log(data);
+    var num= data.length;
+    var i,add;
+    for(i=0;i<num;i++){
+        if(i==num-1){
+            add='<tr><td><input type="text" name="execlude" value="'+data[i]+'" class="execlude"/></td><td class="focus"><a href="#" id="add_execlude_button" class="add_execlude show">&nbsp;+</a><a href="#" class="removeclass hide">&nbsp;x</a></td></tr>';
+        }
+        else{
+            add='<tr><td><input type="text" name="execlude" value="'+data[i]+'" class="execlude"/></td><td class=""><a href="#" id="add_execlude_button" class="add_execlude hide">&nbsp;+</a><a href="#" class="removeclass ">&nbsp;x</a></td></tr>';
+        }
+        $('.execlude_table').append(add);
+        
+    }
+}
 
 function test() {
     console.log('test');
