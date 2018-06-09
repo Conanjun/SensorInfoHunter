@@ -6,26 +6,93 @@
     <script type="text/javascript" src="js/jquery-1.8.3.js"></script>
     <script type="text/javascript" src="js/popup.js"></script>
 </head>
+<style type="text/css">
+.suffix{
+  float: left;
+}
+.hide{
+    display: none;
+}
+.suffix_table tr td{
+    
+}
+.suffix_table tr{
+    height: 30px;
+    height: auto;
+}
+table{
+    border-collapse:separate; 
+    border-spacing:0px 3px;
+}
+a{
+    text-decoration:none;
+}
+</style>
 <body>
     <div id="project_info">
         <p>Author: Conan0xff ImnoBady</p>
         <p>Function: chrome渗透测试插件，自定义规则搜索指定资源的敏感信息。</p>
     </div>
-    <button type="button" id="add_suffix_button">add new suffix</button>
+    <!-- <button type="button" id="add_suffix_button">add new suffix</button> -->
     <div id="file_suffix">
         <!--设置要搜索的文件后缀,需要支持多个后缀，默认后缀为 js(当然搜索范围还包括当前主页面)-->
-        <div><input type="text" name="suffix" value="js"/><a href="#" class="removeclass"><input type='button' value='del'></a></div>
-    </div>
-    <button type="button" id="add_execlude_file_button">add execlude file regexp</button>
-    <div id="execlude_file">
+        <!-- <div><input type="text" name="suffix" value="js"/><a href="#" class="removeclass"><input type='button' value='del'></a></div>
+            </div>
+            <button type="button" id="add_rule_regexp_button">add new rule regexp</button> -->
+            <table class="suffix_table">
+            <thead>设置要搜索的文件后缀,需要支持多个后缀，默认后缀为 js</thead>
+                <tr>
+                    <td>
+                        <input type="text" name="suffix" value="js" class="suffix" readonly />
+                    </td>
+                    <td class="focus">
+                        <a href="#" id="add_suffix_button" class="add_suffix show">&nbsp;+</a>
+                        <a href="#" class="removeclass hide">&nbsp;x</a>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <div id="execlude_file">
         <!--设置要排除的文件名规则,比如常见的jquery.js bootstrap.js-->
-        <div><input type="text" name="suffix" value="/jquery\w*\.js/"/><a href="#" class="removeclass"><input type='button' value='del'></a></div>
-        <div><input type="text" name="suffix" value="/bootstrap\w*\.js/"/><a href="#" class="removeclass"><input type='button' value='del'></a></div>
+        <!-- <div><input type="text" name="suffix" value="/jquery\w*\.js/"/><a href="#" class="removeclass"><input type='button' value='del'></a></div>
+        <div><input type="text" name="suffix" value="/bootstrap\w*\.js/"/><a href="#" class="removeclass"><input type='button' value='del'></a></div> -->
+        <table class="execlude_table">
+            <thead>设置要排除的文件名规则,比如常见的jquery.js bootstrap.js</thead>
+                <tr>
+                    <td>
+                        <input type="text" name="execlude" value="/jquery\w*\.js/"/>
+                    </td>
+                    <td class="">
+                        <a href="#" class="add_execlude hide">&nbsp;+</a>
+                        <a href="#" class="removeclass">&nbsp;x</a>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <input type="text" name="execlude" value="/bootstrap\w*\.js/"/>
+                    </td>
+                    <td class="focus_execlude">
+                        <a href="#" class="add_execlude show">&nbsp;+</a>
+                        <a href="#" class="removeclass hide">&nbsp;x</a>
+                    </td>
+                </tr>
+            </table>
     </div>
-    <button type="button" id="add_rule_regexp_button">add new rule regexp</button>
     <div id="rule_regexp">
         <!--用户设置需要匹配的信息的规则，如包含敏感词列表的路径 ip ajax请求-->
-        <div><input type="text" name="rule_regexp" value="ajax"/><a href="#" class="removeclass"><input type='button' value='del'></a></div>
+        <!-- <div><input type="text" name="rule_regexp" value="ajax"/><a href="#" class="removeclass"><input type='button' value='del'></a></div> -->
+        <table class="regexp_table">
+            <thead>用户设置需要匹配的信息的规则，如包含敏感词列表的路径 ip ajax请求</thead>
+                <tr>
+                    <td>
+                        <input type="text" name="rule_regexp" value="ajax" readonly />
+                    </td>
+                    <td class="focus_regexp">
+                        <a href="#" id="add_regexp_button" class="add_regexp show">&nbsp;+</a>
+                        <a href="#" class="removeclass hide">&nbsp;x</a>
+                    </td>
+                </tr>
+            </table>
     </div>
     <div id="show_result">
         <!--hunter后的结果显示部分-->
