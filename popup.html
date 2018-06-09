@@ -16,6 +16,12 @@
         <!--设置要搜索的文件后缀,需要支持多个后缀，默认后缀为 js(当然搜索范围还包括当前主页面)-->
         <div><input type="text" name="suffix" value="js"/><a href="#" class="removeclass"><input type='button' value='del'></a></div>
     </div>
+    <button type="button" id="add_execlude_file_button">add execlude file regexp</button>
+    <div id="execlude_file">
+        <!--设置要排除的文件名规则,比如常见的jquery.js bootstrap.js-->
+        <div><input type="text" name="suffix" value="/jquery\w*\.js/"/><a href="#" class="removeclass"><input type='button' value='del'></a></div>
+        <div><input type="text" name="suffix" value="/bootstrap\w*\.js/"/><a href="#" class="removeclass"><input type='button' value='del'></a></div>
+    </div>
     <button type="button" id="add_rule_regexp_button">add new rule regexp</button>
     <div id="rule_regexp">
         <!--用户设置需要匹配的信息的规则，如包含敏感词列表的路径 ip ajax请求-->
