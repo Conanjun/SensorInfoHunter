@@ -3,24 +3,28 @@
 <head>
     <meta charset="UTF-8">
     <title>SensorInfoHunter</title>
+    <script type="text/javascript" src="js/jquery-1.8.3.js"></script>
+    <script type="text/javascript" src="js/popup.js"></script>
 </head>
 <body>
     <div id="project_info">
         <p>Author: Conan0xff</p>
         <p>Email: 1526840124@qq.com</p>
-        <p>Function: 渗透测试工具，自定义规则搜索指定资源的敏感信息。</p>
+        <p>Function: chrome渗透测试插件，自定义规则搜索指定资源的敏感信息。</p>
     </div>
+    <button type="button" id="add_suffix_button">add new suffix</button>
     <div id="file_suffix">
         <!--设置要搜索的文件后缀,需要支持多个后缀，默认后缀为 js(当然搜索范围还包括当前主页面)-->
+        <div><input type="text" name="suffix" value="js"/><a href="#" class="removeclass"><input type='button' value='del'></a></div>
     </div>
+    <button type="button" id="add_rule_regexp_button">add new rule regexp</button>
     <div id="rule_regexp">
         <!--用户设置需要匹配的信息的规则，如包含敏感词列表的路径 ip ajax请求-->
+        <div><input type="text" name="rule_regexp" value="ajax"/><a href="#" class="removeclass"><input type='button' value='del'></a></div>
     </div>
     <div id="show_result">
         <!--hunter后的结果显示部分-->
     </div>
     <button type="submit" id="search_button">Search</button>
-    <script type="text/javascript" src="js/jquery-1.8.3.js"></script>
-    <script type="text/javascript" src="js/popup.js"></script>
 </body>
 </html>
