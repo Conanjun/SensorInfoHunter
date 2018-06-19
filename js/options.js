@@ -1,4 +1,5 @@
 $(function () {
+    check_storage(); //检测初始存储信息
     //show_config() 根据chrome.storage.local中的配置显示后缀配置和正则匹配设置
     init_config();
 
@@ -52,6 +53,36 @@ $(function () {
         storage.set({'execlude':execlude});
     });
 });
+
+function check_storage(){
+    var storage=chrome.storage.local;
+    storage.get('suffix',function (value) {
+        console.log(value.suffix);
+        if(value.suffix==undefined){
+            var temp_suffix = new Array();
+            temp_suffix[0]='js';
+            storage.set({'suffix':temp_suffix});
+            console.log(value.suffix);
+        }
+    });
+    storage.get('regexp',function (value) {
+        //console.log(value.suffix);
+        if(value.regexp==undefined){
+            var temp_regexp = new Array();
+            temp_regexp[0]='ajax';
+            storage.set({'regexp':temp_regexp});
+        }
+    });
+    storage.get('execlude',function (value) {
+        //console.log(value.suffix);
+        if(value.execlude==undefined){
+            var temp_execlude = new Array();
+            temp_execlude[0]='/jquery\w*\.js/';
+            temp_execlude[1]='/bootstrap\w*\.js/';
+            storage.set({'execlude':temp_execlude});
+        }
+    });
+}
 
 function add_suffix(e) {
     var add = '<tr><td><input type="text" name="suffix" value="" class="suffix"/></td><td class="focus"><a href="#" id="add_suffix_button" class="add_suffix show">&nbsp;+</a><a href="#" class="removeclass hide">&nbsp;x</a></td></tr>';
