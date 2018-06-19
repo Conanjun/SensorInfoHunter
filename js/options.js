@@ -33,16 +33,26 @@ $(function () {
         var regexp_num = $('input[name="rule_regexp"]').length;
         var execlude_num = $('input[name="execlude"]').length;
         var i;
+        var temp;
         for (i = 0; i < suffix_num; i++) {
-            suffix[i] = $('input[name="suffix"]:eq(' + [i] + ')').val();
+            temp = $('input[name="suffix"]:eq(' + [i] + ')').val();
+            if(temp!=''){
+                suffix[i]=temp;
+            }
             console.log(suffix[i]);
         }
         for (i = 0; i < regexp_num; i++) {
-            regexp[i] = $('input[name="rule_regexp"]:eq(' + [i] + ')').val();
+            temp = $('input[name="rule_regexp"]:eq(' + [i] + ')').val();
+            if(temp!=''){
+                regexp[i]=temp;
+            }
             console.log(regexp[i]);
         }
         for (i = 0; i < execlude_num; i++) {
-            execlude[i] = $('input[name="execlude"]:eq(' + [i] + ')').val();
+            temp = $('input[name="execlude"]:eq(' + [i] + ')').val();
+            if(temp!=''){
+                execlude[i]=temp;
+            }
             console.log(execlude[i]);
         }
         //检测配置是否正确，不正确则提醒用户重新设置
@@ -51,8 +61,14 @@ $(function () {
         storage.set({'suffix':suffix});
         storage.set({'regexp':regexp});
         storage.set({'execlude':execlude});
+        $(".save_sucess").css("display","inline-block");
+        setTimeout(display,1000);
     });
 });
+
+function display(){
+    $('.save_sucess').css('display','none');
+}
 
 function check_storage(){
     var storage=chrome.storage.local;
@@ -85,7 +101,7 @@ function check_storage(){
 }
 
 function add_suffix(e) {
-    var add = '<tr><td><input type="text" name="suffix" value="" class="suffix"/></td><td class="focus"><a href="#" id="add_suffix_button" class="add_suffix show">&nbsp;+</a><a href="#" class="removeclass hide">&nbsp;x</a></td></tr>';
+    var add = '<tr><td><input type="text" name="suffix" value="" class="suffix"/></td><td class="focus"><a href="#" id="add_suffix_button" class="add_suffix show"><i class="fa fa-plus"></i></a><a href="#" class="removeclass hide"><i class="fa fa-times"></i></a></td></tr>';
     e.addClass('hide');
     e.parent('td').find('.removeclass').removeClass('hide');
     $('.focus').removeClass('focus');
@@ -93,7 +109,7 @@ function add_suffix(e) {
 }
 
 function add_regexp(e) {
-    var add = '<tr><td><input type="text" name="rule_regexp" value=""/></td><td class="focus_regexp"><a href="#" id="add_regexp_button" class="add_regexp show">&nbsp;+</a><a href="#" class="removeclass hide">&nbsp;x</a></td></tr>';
+    var add = '<tr><td><input type="text" name="rule_regexp" value=""/></td><td class="focus_regexp"><a href="#" id="add_regexp_button" class="add_regexp show"><i class="fa fa-plus"></i></a><a href="#" class="removeclass hide"><i class="fa fa-times"></i></a></td></tr>';
     e.addClass('hide');
     e.parent('td').find('.removeclass').removeClass('hide');
     $('.focus_regexp').removeClass('focus_regexp');
@@ -101,7 +117,7 @@ function add_regexp(e) {
 }
 
 function add_execlude(e) {
-    var add = '<tr><td><input type="text" name="suffix" value=""/></td><td class="focus_execlude"><a href="#" class="add_execlude show">&nbsp;+</a><a href="#" class="removeclass hide">&nbsp;x</a></td></tr>';
+    var add = '<tr><td><input type="text" name="suffix" value=""/></td><td class="focus_execlude"><a href="#" class="add_execlude show"><i class="fa fa-plus"></i></a><a href="#" class="removeclass hide"><i class="fa fa-times"></i></a></td></tr>';
     e.addClass('hide');
     e.parent('td').find('.removeclass').removeClass('hide');
     $('.focus_execlude').removeClass('focus_execlude');
@@ -132,10 +148,10 @@ function show_stor_suffix(data){
     var i,add;
     for(i=0;i<num;i++){
         if(i==num-1){
-            add='<tr><td><input type="text" name="suffix" value="'+data[i]+'" class="suffix"/></td><td class="focus"><a href="#" id="add_suffix_button" class="add_suffix show">&nbsp;+</a><a href="#" class="removeclass hide">&nbsp;x</a></td></tr>';
+            add='<tr><td><input type="text" name="suffix" value="'+data[i]+'" class="suffix"/></td><td class="focus"><a href="#" id="add_suffix_button" class="add_suffix show"><i class="fa fa-plus"></i></a><a href="#" class="removeclass hide"><i class="fa fa-times"></i></a></td></tr>';
         }
         else{
-            add='<tr><td><input type="text" name="suffix" value="'+data[i]+'" class="suffix"/></td><td class=""><a href="#" id="add_suffix_button" class="add_suffix hide">&nbsp;+</a><a href="#" class="removeclass ">&nbsp;x</a></td></tr>';
+            add='<tr><td><input type="text" name="suffix" value="'+data[i]+'" class="suffix"/></td><td class=""><a href="#" id="add_suffix_button" class="add_suffix hide"><i class="fa fa-plus"></i></a><a href="#" class="removeclass "><i class="fa fa-times"></i></a></td></tr>';
         }
         $('.suffix_table').append(add);
         
@@ -148,10 +164,10 @@ function show_stor_regexp(data){
     var i,add;
     for(i=0;i<num;i++){
         if(i==num-1){
-            add='<tr><td><input type="text" name="rule_regexp" value="'+data[i]+'" class="regexp"/></td><td class="focus"><a href="#" id="add_regexp_button" class="add_regexp show">&nbsp;+</a><a href="#" class="removeclass hide">&nbsp;x</a></td></tr>';
+            add='<tr><td><input type="text" name="rule_regexp" value="'+data[i]+'" class="regexp"/></td><td class="focus"><a href="#" id="add_regexp_button" class="add_regexp show"><i class="fa fa-plus"></i></a><a href="#" class="removeclass hide"><i class="fa fa-times"></i> </a></td></tr>';
         }
         else{
-            add='<tr><td><input type="text" name="rule_regexp" value="'+data[i]+'" class="regexp"/></td><td class=""><a href="#" id="add_regexp_button" class="add_regexp hide">&nbsp;+</a><a href="#" class="removeclass ">&nbsp;x</a></td></tr>';
+            add='<tr><td><input type="text" name="rule_regexp" value="'+data[i]+'" class="regexp"/></td><td class=""><a href="#" id="add_regexp_button" class="add_regexp hide"><i class="fa fa-plus"></i></a><a href="#" class="removeclass "><i class="fa fa-times"></i></a></td></tr>';
         }
         $('.regexp_table').append(add);
         
@@ -164,10 +180,10 @@ function show_stor_execlude(data){
     var i,add;
     for(i=0;i<num;i++){
         if(i==num-1){
-            add='<tr><td><input type="text" name="execlude" value="'+data[i]+'" class="execlude"/></td><td class="focus"><a href="#" id="add_execlude_button" class="add_execlude show">&nbsp;+</a><a href="#" class="removeclass hide">&nbsp;x</a></td></tr>';
+            add='<tr><td><input type="text" name="execlude" value="'+data[i]+'" class="execlude"/></td><td class="focus"><a href="#" id="add_execlude_button" class="add_execlude show"><i class="fa fa-plus"></i></a><a href="#" class="removeclass hide"><i class="fa fa-times"></i></a></td></tr>';
         }
         else{
-            add='<tr><td><input type="text" name="execlude" value="'+data[i]+'" class="execlude"/></td><td class=""><a href="#" id="add_execlude_button" class="add_execlude hide">&nbsp;+</a><a href="#" class="removeclass ">&nbsp;x</a></td></tr>';
+            add='<tr><td><input type="text" name="execlude" value="'+data[i]+'" class="execlude"/></td><td class=""><a href="#" id="add_execlude_button" class="add_execlude hide"><i class="fa fa-plus"></i></a><a href="#" class="removeclass "><i class="fa fa-times"></i></a></td></tr>';
         }
         $('.execlude_table').append(add);
         
