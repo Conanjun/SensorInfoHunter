@@ -3,23 +3,183 @@
 <head>
     <meta charset="UTF-8">
     <title>SensorInfoHunter</title>
+    <link rel="stylesheet" href="css/font-awesome.min.css">
+    <link rel="stylesheet" href="css/button.css">
 </head>
+<style type="text/css">
+#show_url{
+	margin: 10px;padding: 10px 12px;
+	border:solid 1px #ECC27D;
+	background-color: #FFF5EC; 
+	color: #FF7A17;
+	border-radius: 2px;
+	width: 400px;
+}
+#url_span{
+	display: block;
+	width:400px;
+	overflow: hidden;
+	text-overflow: ellipsis;
+    white-space: nowrap;
+}
+#show_result{
+	
+	width: 430px;
+	margin:0;
+	margin-left: 10px;
+	overflow-y: auto;
+	word-wrap: break-word;
+	max-height: 460px;
+}
+.top{
+	width: 430px;
+	padding: 3px;
+	margin-left: 10px;
+	border-bottom:1px #ccc solid;
+}
+#result_top{
+	
+	font-size: 13px;
+	margin-bottom: -2px;
+	width: 50px;
+	float: left;
+}
+#search_button{
+	display: inline-block;padding: 0 6px;
+	height: 20px;line-height:19px;text-align: center;
+	color: #fff;font-weight: bold;font-size: 11px;
+	border-radius: 2px;
+	background: -webkit-linear-gradient(top,#FFA340,#FF8400);
+	position: relative;
+	left:320px;//320;161
+}
+a{
+	text-decoration: none;
+}
+ul{
+	list-style-type: none;
+    line-height: 18px;
+    padding-left: 0;
+}
+label{
+	position: relative;
+    padding: 1px 5px 5px;
+    height: 16px;
+    display: block;
+    overflow: hidden;
+    border: solid 1px #fff;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+label:hover{
+	border: solid 1px #ccc;
+}
+.warning{
+	color: red;
+	display: none;
+}
+</style>
 <body>
-<div id="show_url">
-    <!--显示当前url-->
+<!-- <div id="show_url">
+    显示当前url
     This is init url
 </div>
 <button type="button" id="get_url">get current url</button>
 
 
 <div id="show_result">
-    <!--hunter后的结果显示部分-->
+    hunter后的结果显示部分
     This is result
-    <!--
     文件名: 敏感信息(缩略内容) 位置(位于文件第几行)
-    -->
 </div>
-<button type="submit" id="search_button">Search</button>
+<button type="submit" id="search_button">Search</button> -->
+
+<div id="show_url">
+	<span><strong>init url</strong> :</span>
+	<span id="url_span">init url</span>
+</div>
+<div class="top">
+<div id="result_top"><strong>result</strong></div>
+<span class="warning">you need to refresh this page</span>
+<a id="search_button" href="#" >search</a>
+</div>
+<div id="show_result">
+	<ul class="result_box">
+		<li>
+			<label>xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxsadfds</label>
+		</li>
+		<li>
+			<label>yyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy</label>
+		</li>
+		<li>
+			<label>xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx</label>
+		</li>
+		<li>
+			<label>yyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy</label>
+		</li>
+		<li>
+			<label>xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx</label>
+		</li>
+		<li>
+			<label>yyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy</label>
+		</li>
+		<li>
+			<label>xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx</label>
+		</li>
+		<li>
+			<label>yyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy</label>
+		</li>
+		<li>
+			<label>xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx</label>
+		</li>
+		<li>
+			<label>yyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy</label>
+		</li>
+		<li>
+			<label>xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx</label>
+		</li>
+		<li>
+			<label>yyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy</label>
+		</li>
+		<li>
+			<label>xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx</label>
+		</li>
+		<li>
+			<label>yyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy</label>
+		</li>
+		<li>
+			<label>xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx</label>
+		</li>
+		<li>
+			<label>yyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy</label>
+		</li>
+		<li>
+			<label>xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx</label>
+		</li>
+		<li>
+			<label>yyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy</label>
+		</li>
+		<li>
+			<label>xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx</label>
+		</li>
+		<li>
+			<label>yyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy</label>
+		</li>
+		<li>
+			<label>xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx</label>
+		</li>
+		<li>
+			<label>yyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy</label>
+		</li>
+		<li>
+			<label>xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx</label>
+		</li>
+		<li>
+			<label>yyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy</label>
+		</li>
+	</ul>
+</div>
 <script type="text/javascript" src="js/jquery-1.8.3.js"></script>
 <script type="text/javascript" src="js/popup.js"></script>
 </body>
