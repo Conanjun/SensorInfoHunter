@@ -93,8 +93,8 @@ function check_storage(){
         //console.log(value.suffix);
         if(value.execlude==undefined){
             var temp_execlude = new Array();
-            temp_execlude[0]='/jquery\w*\.js/';
-            temp_execlude[1]='/bootstrap\w*\.js/';
+            temp_execlude[0]='jquery';
+            temp_execlude[1]='bootstrap';
             storage.set({'execlude':temp_execlude});
         }
     });

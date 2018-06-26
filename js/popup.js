@@ -2,6 +2,7 @@ $(function () {
     chrome.tabs.getSelected(null, function (tab) {
         $('#url_span').text(tab.url);
     });
+    init_config();
     //设置搜索按钮事件
     $('#search_button').click(function () {
         var current_url = '';
@@ -27,7 +28,11 @@ $(function () {
                 }
                 else{
                     
-                    console.log(current_html);
+                    //console.log(current_html);
+                    var suffix_list=get_suffix_list(current_html);
+                    var suffix_list_ex=del_execlude(suffix_list);
+                    console.log(suffix_list_ex);
+                    show_data(suffix_list_ex);
                 }
                 //解析指定后缀的资源，webrequest加载然后分析匹配指定规则的内容,由于这可能花费的时间比较多，需要交给background.js
                 //显示结果
@@ -46,9 +51,10 @@ function display_refresh(){
 function get_suffix_list(html) {
     //TODO
     var result = new Array();
-    for (var i = 0; i < suffixs.length; i++) {
-        temp_pattern = new RegExp("[\\.|:|\\/|\\w]+\\." + suffixs[i], "gi");
-        result[suffixs[i]] = html.match(temp_pattern);
+    for (var i = 0; i < suffix.length; i++) {
+        temp_pattern = new RegExp("[\\.|:|\\/|\\w]+\\." + suffix[i], "gi");
+        console.log(temp_pattern);
+        result[suffix[i]] = html.match(temp_pattern);
     }
     return result
 }
@@ -58,6 +64,32 @@ function regexp_analyze(content, rule_regexp) {
     //TODO
 }
 
+function del_execlude(list){
+    //console.log(list);
+    var execlude_reg = new Array();
+    for(var i = 0; i < suffix.length; i++){
+        for(var j=0;j<list[suffix[i]].length;j++){
+            for(var k=0;k<execlude.length;k++){
+                temp_patt = new RegExp("/"+execlude[k]+"w*/","gi");
+                //console.log(temp_patt);
+                if(temp_patt.test(list[suffix[i]][j])){
+                    list[suffix[i]].splice(j,1);
+                }
+            }
+        }
+    }
+    return list;
+}
+
+function show_data(data){
+    $('.result_box').empty();
+    for(var i = 0; i < suffix.length; i++){
+        for(var j=0;j<data[suffix[i]].length;j++){
+            var label='<li><label>'+data[suffix[i]][j]+'</label></li>';
+            $('.result_box').append(label);
+        }
+    }
+}
 
 var suffix = new Array();
 var regexp = new Array();
@@ -65,7 +97,25 @@ var execlude = new Array();
 
 
 function init_config() {
-    //初始化配置: suffix regexp execlude
+    var storage=chrome.storage.local;
+    suffix=[];
+    regexp=[];
+    execlude=[];
+    storage.get('suffix',function (value) {
+        for(var i=0;i<value.suffix.length;i++){
+            suffix.push(value.suffix[i]);
+        }
+    });
+    storage.get('regexp',function (value) {
+        for(var i=0;i<value.regexp.length;i++){
+            regexp.push(value.regexp[i]);
+        }
+    });
+    storage.get('execlude',function (value) {
+        for(var i=0;i<value.execlude.length;i++){
+            execlude.push(value.execlude[i]);
+        }
+    });
 }
 
 function test() {
