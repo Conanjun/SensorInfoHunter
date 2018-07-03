@@ -30,10 +30,11 @@ $(function () {
                     
                     //console.log(current_html);
                     var suffix_list=get_suffix_list(current_html);
+                    console.log(suffix_list);
                     var suffix_list_ex=del_execlude(suffix_list);
                     console.log(suffix_list_ex);
                     search_request(suffix_list_ex);
-                    show_data(suffix_list_ex);
+                    //show_data(suffix_list_ex);
                 }
                 //解析指定后缀的资源，webrequest加载然后分析匹配指定规则的内容,由于这可能花费的时间比较多，需要交给background.js
                 //显示结果
@@ -70,9 +71,10 @@ function del_execlude(list){
     for(var i = 0; i < suffix.length; i++){
         for(var j=0;j<list[suffix[i]].length;j++){
             for(var k=0;k<execlude.length;k++){
-                temp_patt = new RegExp("/"+execlude[k]+"w*/","gi");
+                temp_patt = new RegExp(execlude[k]+"w*","gi");
                 console.log(temp_patt);
                 if(temp_patt.test(list[suffix[i]][j])){
+                    console.log(1);
                     list[suffix[i]].splice(j,1);
                 }
             }
@@ -81,15 +83,10 @@ function del_execlude(list){
     return list;
 }
 
-function show_data(data){
-    $('.result_box').empty();
-    for(var i = 0; i < suffix.length; i++){
-        for(var j=0;j<data[suffix[i]].length;j++){
-            var label='<li><label>'+data[suffix[i]][j]+'</label></li>';
-            $('.result_box').append(label);
-        }
-    }
-}
+
+function goBack(){
+    window.history.back();
+  }
 
 var suffix = new Array();
 var regexp = new Array();
