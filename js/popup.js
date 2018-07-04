@@ -3,6 +3,12 @@ $(function () {
         $('#url_span').text(tab.url);
     });
     init_config();
+    $('#back_button').click(function(){
+        $('#back_button').css('display','none');
+        $('#search_button').css('display','');
+        $('#detail_result').css('display','none');
+        $('#show_result').css('display','');
+    });
     //设置搜索按钮事件
     $('#search_button').click(function () {
         var current_url = '';
@@ -117,3 +123,28 @@ function init_config() {
 function test() {
     console.log('test');
 }
+
+
+/*$(".show_detail").click(function(){
+    console.log(1);
+});*/
+$(document).on("click",".show_detail",function(){
+    var or_url=$(this).attr('data');
+    var url;
+    var key;
+    for(var i=0;i<data_storage_url.length;i++){
+        if(data_storage_url[i].or_url==or_url){
+            url=data_storage_url[i].url;
+            key=data_storage_url[i].key;
+        }
+    }
+    /*for(var i=0;i<data_storage_location.length;i++){
+        if(data_storage_location[i].or_url==or_url){
+            location.push({
+                'flocation':data_storage_location[i].flocation,
+                'llocation':data_storage_location[i].llocation
+            });
+        }
+    }*/
+    show_detail(url,key);
+});

@@ -30,6 +30,17 @@
 	overflow-y: auto;
 	word-wrap: break-word;
 	max-height: 460px;
+	
+}
+#detail_result{
+	
+	width: 430px;
+	margin:0;
+	margin-left: 10px;
+	overflow-y: auto;
+	word-wrap: break-word;
+	max-height: 460px;
+	
 }
 .top{
 	width: 430px;
@@ -52,6 +63,18 @@
 	//background: -webkit-linear-gradient(top,#FFA340,#FF8400);
 	background: -webkit-linear-gradient(top,#2AC3F3,#00A0E3);
 	position: relative;
+	
+	left:320px;//320;161
+}
+#back_button{
+	display: inline-block;padding: 0 6px;
+	height: 20px;line-height:19px;text-align: center;
+	color: #fff;font-weight: bold;font-size: 11px;
+	border-radius: 2px;
+	background: -webkit-linear-gradient(top,#FFA340,#FF8400);
+	//background: -webkit-linear-gradient(top,#2AC3F3,#00A0E3);
+	position: relative;
+	
 	left:320px;//320;161
 }
 a{
@@ -104,11 +127,15 @@ label:hover{
 <div id="result_top"><strong>result</strong></div>
 <span class="warning">you need to refresh this page</span>
 <a id="search_button" href="#" >search</a>
+<a id="back_button" href="#" style="display: none;">back</a>
 </div>
 <div id="show_result">
 	<ul class="result_box">
 		please start search
 	</ul>
+</div>
+<div id="detail_result"  style="display: none">
+asd
 </div>
 <script type="text/javascript" src="js/jquery-1.8.3.js"></script>
 <script type="text/javascript" src="js/background.js"></script>

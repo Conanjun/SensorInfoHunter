@@ -67,8 +67,8 @@ function get_regexp(url,or_url,data){
 			  data_storage_location.push({
 			  	'or_url':or_url,
 				'key':regexp[i],
-				'flcation':match.index,
-				'llcation':reg.lastIndex
+				'flocation':match.index,
+				'llocation':reg.lastIndex
 			  });
 			  num++;
 			}
@@ -91,7 +91,62 @@ function get_regexp(url,or_url,data){
 
 function show_data(or_url,key,num){
 	if(num!=0){
-    	var label='<li><a href="#"><label >key['+key+']-num['+num+'] {'+or_url+'}</label></a></li>';
+    	var label='<li><a href="#" data='+or_url+' class="show_detail"><label>key['+key+']-num['+num+'] {'+or_url+'}</label></a></li>';
     	$('.result_box').append(label);
 	}
+}
+
+function show_detail(url,key){
+	var xhr = new XMLHttpRequest();
+	xhr.onload = function(e) {
+		show_detail_data(xhr.response,key);
+		
+	}
+	xhr.open("GET", url,true);
+	xhr.responseType = "text";
+	xhr.send();
+}
+
+function show_detail_data(or_data,key){
+	var result;
+	var str;
+	var temp;
+	var location=new Array();
+	data=or_data.replace(/</g,"&it").replace(/>/g,"&gt");
+	var reg = new RegExp(key,"gi");
+	var match;
+	while (match = reg.exec(data)) {
+			  console.log(match.index + ' ' + reg.lastIndex);
+			  location.push({
+				'flocation':match.index,
+				'llocation':reg.lastIndex
+			  });
+			  
+		}
+	var lnum=location.length;
+	str='<span>'+data.substring(0,location[0].flocation)+'</span>';
+	result+=str;
+	
+	for(var i=0;i<lnum;i++){
+		if(i==0){
+			temp = data.substring(location[i].flocation,location[i].llocation);
+			str = '<span><font style="background-color: #ECC27D">'+temp+'</font></span>';
+			result+=str;
+		}
+		else{
+			str = '<span>'+data.substring(location[i-1].llocation,location[i].flocation)+'</span>';
+			result+=str;
+			temp = data.substring(location[i].flocation,location[i].llocation);
+			str = '<span><font style="background-color: #ECC27D">'+temp+'</font></span>';
+			result+=str;
+		}
+	}
+	str='<span>'+data.substring(location[lnum-1].llocation,data.length)+'</span>';
+	result+=str;
+	//console.log(result);
+	$('#detail_result').html(result);
+	$('#back_button').css('display','');
+    $('#search_button').css('display','none');
+    $('#detail_result').css('display','');
+    $('#show_result').css('display','none');
 }
