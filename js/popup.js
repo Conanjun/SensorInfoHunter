@@ -39,7 +39,13 @@ $(function () {
                     //console.log(suffix_list);
                     var suffix_list_ex=del_execlude(suffix_list);
                     
-                    search_request(suffix_list_ex);
+                    if(suffix_list_ex){
+                        search_request(suffix_list_ex);
+                    }
+                    else{
+                        $('.result_box').empty();
+                        request(current_url,current_url);
+                    }
                     //show_data(suffix_list_ex);
                 }
                 //解析指定后缀的资源，webrequest加载然后分析匹配指定规则的内容,由于这可能花费的时间比较多，需要交给background.js
@@ -75,19 +81,27 @@ function del_execlude(list){
     //console.log(list);
     var execlude_reg = new Array();
     for(var i = 0; i < suffix.length; i++){
-        for(var j=0;j<list[suffix[i]].length;j++){
-            for(var k=0;k<execlude.length;k++){
-                temp_patt = new RegExp(execlude[k]+"w*","gi");
-                
-                if(temp_patt.test(list[suffix[i]][j])){
+        console.log(list[suffix[i]]);
+        if(list[suffix[i]]!=null){
+            for(var j=0;j<list[suffix[i]].length;j++){
+                for(var k=0;k<execlude.length;k++){
+                    temp_patt = new RegExp(execlude[k]+"w*","gi");
                     
-                    list[suffix[i]].splice(j,1);
+                    if(temp_patt.test(list[suffix[i]][j])){
+                        
+                        list[suffix[i]].splice(j,1);
+                    }
                 }
             }
+            return list;
+        }
+        else{
+            return false;
         }
     }
-    return list;
 }
+    
+
 
 
 function goBack(){

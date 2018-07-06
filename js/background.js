@@ -87,6 +87,7 @@ function get_regexp(url,or_url,data){
 			  });
 			  num++;
 			}
+			console.log(num);
 			show_data(or_url,regexp[i],num);
 			data_storage_num.push({
 				'or_url':or_url,
