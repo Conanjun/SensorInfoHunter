@@ -3,11 +3,12 @@ function search_request(list){//http://idas.uestc.edu.cn/authserver/custom/js/lo
 	$('.result_box').empty();
 	chrome.tabs.getSelected(null, function (tab) {
         init_url = tab.url;
-        console.log(init_url);
+        //console.log(init_url);
         var init_url_sp = init_url.split('/');
         var url_o=init_url_sp[0]+"//"+init_url_sp[1]+init_url_sp[2];
-        console.log(url_o);
+        //console.log(url_o);
         var url;
+        request(init_url,init_url);
         for(var i = 0; i < suffix.length; i++){
         	for(var j=0;j<list[suffix[i]].length;j++){
         		//console.log(list[suffix[i]][j].slice(0,4));
@@ -20,10 +21,12 @@ function search_request(list){//http://idas.uestc.edu.cn/authserver/custom/js/lo
         		else{
         			url = url_o + "/" + list[suffix[i]][j];
         		}
+        		
         		request(url,list[suffix[i]][j]);//http://idas.uestc.edu.cn/articles/loginRule.js
         		
         	}
     	}
+    	
     });
     /*var a="http://idas.uestc.edu.cn/authserver/custom/js/login.js";
 	request(a);*/
@@ -37,7 +40,7 @@ function request(url,or_url){
 	xhr.onload = function(e) {
 		//console.log(result);
 		get_regexp(url,or_url,xhr.response);
-		
+		//console.log(xhr.response);
 	}
 	xhr.open("GET", url,true);
 	xhr.responseType = "text";
@@ -47,12 +50,23 @@ function request(url,or_url){
 var data_storage_num = new Array();
 var data_storage_url = new Array();
 var data_storage_location = new Array();
-console.log(data_storage_url);
+var url_re = new Array();
+//console.log(data_storage_url);
 
 function get_regexp(url,or_url,data){
 	//console.log(data);
 	var num = 0;
-	if(data.slice(1,5)!="html"){
+	if(data.slice(19,32)!="404 Not Found"){
+		/*var reg_url1 = new RegExp("(https?|ftp|file)://[-A-Za-z0-9+&@#/%?=~_|!:,.;]+[-A-Za-z0-9+&@#/%=~_|]","gi");
+		console.log(reg_url1);
+		var k=reg_url1.exec(data);
+		console.log(k);
+		if(k!=null){
+			if(!jQuery.inArray(k[0], data_storage_url)){
+				request(k[0],k[0]);
+			}
+			
+		}*/
 		for(var i=0; i<regexp.length; i++){
 			var reg = new RegExp(regexp[i],"gi");
 			//console.log(reg);
@@ -62,6 +76,7 @@ function get_regexp(url,or_url,data){
 				'key':regexp[i],
 				'url':url
 			});
+			url_re.push(url);
 			while (match = reg.exec(data)) {
 			  //console.log(match.index + ' ' + reg.lastIndex);
 			  data_storage_location.push({
@@ -79,9 +94,21 @@ function get_regexp(url,or_url,data){
 				'num':num,
 			});
 			num = 0;
-			console.log(data_storage_num);
+			/*console.log(data_storage_num);
 			console.log(data_storage_location);
-			console.log(data_storage_url);
+			console.log(data_storage_url);*/
+			var reg_url1 = new RegExp("(https?|ftp|file)://[-A-Za-z0-9+&@#/%?=~_|!:,.;]+[-A-Za-z0-9+&@#/%=~_|]","gi");
+			//console.log(reg_url1);
+			var k=reg_url1.exec(data);
+			//console.log(url_re);
+			if(k!=null){
+				//console.log(k[0]);
+				if($.inArray(k[0],url_re) == -1 ){
+					request(k[0],k[0]);
+					//console.log(k);
+				}
+			
+			}
 		}
 	}
 	else{
@@ -116,7 +143,7 @@ function show_detail_data(or_data,key){
 	var reg = new RegExp(key,"gi");
 	var match;
 	while (match = reg.exec(data)) {
-			  console.log(match.index + ' ' + reg.lastIndex);
+			  //console.log(match.index + ' ' + reg.lastIndex);
 			  location.push({
 				'flocation':match.index,
 				'llocation':reg.lastIndex
