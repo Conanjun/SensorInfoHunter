@@ -39,8 +39,8 @@ function request(url,or_url){
 	var xhr = new XMLHttpRequest();
 	xhr.onload = function(e) {
 		//console.log(result);
+		
 		get_regexp(url,or_url,xhr.response);
-		//console.log(xhr.response);
 	}
 	xhr.open("GET", url,true);
 	xhr.responseType = "text";
@@ -87,7 +87,7 @@ function get_regexp(url,or_url,data){
 			  });
 			  num++;
 			}
-			console.log(num);
+			//console.log(num);
 			show_data(or_url,regexp[i],num);
 			data_storage_num.push({
 				'or_url':or_url,

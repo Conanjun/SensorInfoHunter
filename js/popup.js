@@ -36,9 +36,9 @@ $(function () {
                     
                     //console.log(current_html);
                     var suffix_list=get_suffix_list(current_html);
-                    //console.log(suffix_list);
+                    console.log(suffix_list);
                     var suffix_list_ex=del_execlude(suffix_list);
-                    
+                    console.log(suffix_list_ex);
                     if(suffix_list_ex){
                         search_request(suffix_list_ex);
                     }
@@ -81,12 +81,11 @@ function del_execlude(list){
     //console.log(list);
     var execlude_reg = new Array();
     for(var i = 0; i < suffix.length; i++){
-        console.log(list[suffix[i]]);
+        //console.log(list[suffix[i]]);
         if(list[suffix[i]]!=null){
             for(var j=0;j<list[suffix[i]].length;j++){
                 for(var k=0;k<execlude.length;k++){
-                    temp_patt = new RegExp(execlude[k]+"w*","gi");
-                    
+                    temp_patt = new RegExp(execlude[k]+"[.|-]","gi");
                     if(temp_patt.test(list[suffix[i]][j])){
                         
                         list[suffix[i]].splice(j,1);
