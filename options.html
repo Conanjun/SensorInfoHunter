@@ -5,6 +5,7 @@
     <title>SensorInfoHunter</title>
     <link rel="stylesheet" href="css/font-awesome.min.css">
     <link rel="stylesheet" href="css/button.css">
+    <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css"> 
 </head>
 <style type="text/css">
     .suffix{
@@ -20,18 +21,25 @@
         height: 30px;
         height: auto;
     }
-    table{
-        border-collapse:separate;
-        border-spacing:0px 3px;
+    .table{
+        margin-top: 5px;
     }
-    a{
-        text-decoration:none;
-        margin-left: 7px;
+    
+    input{
+        width:250px;
+
+    }
+    body{
+        margin:15px;
     }
     .save_sucess{
         color: red;
         margin-left: 10px;
         display: none;
+    }
+    #save_button_reg{
+        margin-left: 15px;
+
     }
     /* .loading{
         display: none;
@@ -43,6 +51,71 @@
         font-size: 15px;
         width: 50%;
     } */
+    .cur{
+        border-top: 2px solid #4D0B33;
+        border-left: 1px solid #4D0B33;
+        border-right: 1px solid #4D0B33;
+        
+        
+    }
+
+    ul,ol,li{margin:0; padding:0;}
+    ol,ul,li{list-style:none;}
+a{text-decoration:none; color:#222;}
+a:hover{color:#052299;text-decoration:none;}
+a:active{color:#052299;text-decoration:none;}
+    /*= 清除浮动=*/
+.clear{clear: both; height:0px; line-height:0px; font-size:0px;}
+.clearfix:after { content: "."; display: block; height: 0;  clear: both; visibility: hidden;}
+/* Hides from IE-mac \*/
+* html .clearfix {height: 1%;}
+/* End hide from IE-mac */
+*+html .clearfix {min-height: 1%;}
+*html{zoom:expression(function(ele){ele.style.zoom = "1";document.execCommand("BackgroundImageCache",false,true)}
+(this))}
+
+/* 左右浮动 */
+.fl{ float:left;}
+.fr{ float:right}
+
+/* 正文 */
+.wraper{ width:360px; padding-top:0px; margin:0 auto}
+.nav{ position:relative; width:100%; height:40px; background:#2AC3F3; overflow:hidden;}
+.nav-item{ position:relative; float:left; width:120px; height:40px; line-height:40px; text-align:center; font-size:14px; z-index:1;}
+.nav-item a{ display:block; height:40px; color:#fff; }
+.nav-item a:hover{ color:#fff}
+.move-bg{ display:none;position:absolute;left:0;top:0; width:120px; height:40px; background:#4D0B33; z-index:0}
+#rule_regexp{
+    border: 1px solid #4D0B33;
+    border-top: none;
+    width: 360px;
+    margin-left: 5px;
+    padding: 5px;
+}
+#execlude_file{
+    border: 1px solid #4D0B33;
+    border-top: none;
+    width: 360px;
+    margin-left: 5px;
+    padding: 5px;
+}
+.div_title{
+    height: 10px;
+    margin-top: 0;
+}
+.del:hover{
+    color: red;
+}
+#file_suffix{
+    border: 1px solid #4D0B33;
+    border-top: none;
+    width: 360px;
+    margin-left: 5px;
+    padding: 5px;
+}
+.button-rounded{
+    margin-left: 4px;
+}
 </style>
 <body>
 <div id="project_info">
@@ -50,14 +123,14 @@
     <p>Function: chrome渗透测试插件，自定义规则搜索指定资源的敏感信息。</p>
 </div>
 <!-- <button type="button" id="add_suffix_button">add new suffix</button> -->
-<div id="file_suffix">
-    <!--设置要搜索的文件后缀,需要支持多个后缀，默认后缀为 js(当然搜索范围还包括当前主页面)-->
-    <!-- <div><input type="text" name="suffix" value="js"/><a href="#" class="removeclass"><input type='button' value='del'></a></div>
+<!-- <div id="file_suffix">
+    设置要搜索的文件后缀,需要支持多个后缀，默认后缀为 js(当然搜索范围还包括当前主页面)
+    <div><input type="text" name="suffix" value="js"/><a href="#" class="removeclass"><input type='button' value='del'></a></div>
         </div>
-        <button type="button" id="add_rule_regexp_button">add new rule regexp</button> -->
+        <button type="button" id="add_rule_regexp_button">add new rule regexp</button>
     <table class="suffix_table">
         <thead>设置要搜索的文件后缀,需要支持多个后缀，默认后缀为 js</thead>
-        <!-- <tr>
+        <tr>
             <td>
                 <input type="text" name="suffix" value="js" class="suffix" readonly />
             </td>
@@ -65,16 +138,16 @@
                 <a href="#" id="add_suffix_button" class="add_suffix show">&nbsp;+</a>
                 <a href="#" class="removeclass hide">&nbsp;x</a>
             </td>
-        </tr> -->
+        </tr>
     </table>
 </div>
 <div id="execlude_file">
-    <!--设置要排除的文件名规则,比如常见的jquery.js bootstrap.js-->
-    <!-- <div><input type="text" name="suffix" value="/jquery\w*\.js/"/><a href="#" class="removeclass"><input type='button' value='del'></a></div>
-    <div><input type="text" name="suffix" value="/bootstrap\w*\.js/"/><a href="#" class="removeclass"><input type='button' value='del'></a></div> -->
+    设置要排除的文件名规则,比如常见的jquery.js bootstrap.js
+    <div><input type="text" name="suffix" value="/jquery\w*\.js/"/><a href="#" class="removeclass"><input type='button' value='del'></a></div>
+    <div><input type="text" name="suffix" value="/bootstrap\w*\.js/"/><a href="#" class="removeclass"><input type='button' value='del'></a></div>
     <table class="execlude_table">
         <thead>设置要排除的文件名规则,比如常见的jquery.js bootstrap.js</thead>
-        <!-- <tr>
+        <tr>
             <td>
                 <input type="text" name="execlude" value="/jquery\w*\.js/"/>
             </td>
@@ -91,15 +164,15 @@
                 <a href="#" class="add_execlude show">&nbsp;+</a>
                 <a href="#" class="removeclass hide">&nbsp;x</a>
             </td>
-        </tr> -->
+        </tr>
     </table>
 </div>
 <div id="rule_regexp">
-    <!--用户设置需要匹配的信息的规则，如包含敏感词列表的路径 ip ajax请求-->
-    <!-- <div><input type="text" name="rule_regexp" value="ajax"/><a href="#" class="removeclass"><input type='button' value='del'></a></div> -->
+    用户设置需要匹配的信息的规则，如包含敏感词列表的路径 ip ajax请求
+    <div><input type="text" name="rule_regexp" value="ajax"/><a href="#" class="removeclass"><input type='button' value='del'></a></div>
     <table class="regexp_table">
         <thead>用户设置需要匹配的信息的规则，如包含敏感词列表的路径 ip ajax请求</thead>
-        <!-- <tr>
+        <tr>
             <td>
                 <input type="text" name="rule_regexp" value="ajax" readonly />
             </td>
@@ -107,10 +180,134 @@
                 <a href="#" id="add_regexp_button" class="add_regexp show">&nbsp;+</a>
                 <a href="#" class="removeclass hide">&nbsp;x</a>
             </td>
-        </tr> -->
+        </tr>
     </table>
 </div>
-<button type="submit" id="save_button" class="button  button-rounded button-small">Save</button><!-- <i class="fa fa-spinner fa-spin fa-2x fa-fw loading"></i> --><span class='save_sucess'>保存成功</span>
+<button type="submit" id="save_button" class="button  button-rounded button-small">Save</button><i class="fa fa-spinner fa-spin fa-2x fa-fw loading"></i><span class='save_sucess'>保存成功</span> -->
+<div class="wraper">
+
+    <div class="nav">
+
+        <ul>
+
+            <li class="nav-item regexp cur" style="border-bottom: none;"><a href="#">匹配规则</a></li>
+
+            <li class="nav-item execlude" style="border-bottom: 1px solid #4D0B33;"><a href="#" >排除文件</a></li>
+            <li class="nav-item suffix" style="border-bottom: 1px solid #4D0B33;"><a href="#">搜索文件</a></li>
+            
+
+        </ul>
+
+        <!--移动的滑动-->
+
+        <div class="move-bg"></div>
+
+        <!--移动的滑动 end-->
+
+    </div>
+
+</div>
+<div id="rule_regexp">
+
+    <p class="div_title">用户设置需要匹配的信息的规则，如 ip ajax请求</p>
+    <input type="text" name="rule_regexp" value="ajax"  /><button type="submit" id="save_button_regexp" class="button button-rounded button-tiny" >添加</button>
+    <p  class="div_title add_success add_regexp" style="color:red;display: none;">添加成功</p>
+    <table class="regexp_table table table-hover table-bordered">
+        <caption>rule regexp</caption>
+        <thead>
+        <tr>
+            <th>regexp</th>
+            <th>option</th>
+            
+        </tr>
+    </thead>
+    <tbody class="regexp_data">
+        <tr>
+            <td>
+                ajax
+            </td>
+            <td>
+                <a data="ajax" href="#" class="del del_regexp">删除</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+<div id="execlude_file" style="display: none">
+    <p class="div_title">设置要排除的文件名规则,比如常见的jquery.js bootstrap.js</p>
+    <input type="text" name="execlude" value="jquery"  /><button type="submit" id="save_button_execlude" class="button button-rounded button-tiny" >添加</button>
+    <p  class="div_title add_success add_execlude" style="color:red;display: none;">添加成功</p>
+    <table class="execlude_table table table-hover table-bordered">
+        <caption>file execlude</caption>
+        <thead>
+        <tr>
+            <th>execlude</th>
+            <th>option</th>
+            
+        </tr>
+    </thead>
+    <tbody class="execlude_data">
+        <tr>
+            <td>
+                jquery
+            </td>
+            <td>
+                <a data="jquery" href="#" class="del del_execlude">删除</a>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                bootstrap
+            </td>
+            <td>
+                <a data="bootstrap" href="#" class="del del_execlude">删除</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+<div id="file_suffix"   style="display: none">
+    <p class="div_title">设置要搜索的文件后缀，默认主页面以及http(s)链接</p>
+    <input type="text" name="file_suffix" value="css"  /><button type="submit" id="save_button_suffix" class="button button-rounded button-tiny" >添加</button>
+    <p  class="div_title add_success add_suffix" style="color:red;display: none;">添加成功</p>
+    <table class="suffix_table table table-hover table-bordered">
+        <caption>file suffix</caption>
+        <thead>
+        <tr>
+            <th>execlude</th>
+            <th>option</th>
+            
+        </tr>
+    </thead>
+    <tbody class="suffix_data">
+        <tr>
+            <td>
+                js
+            </td>
+            <td>
+                <a data="js" href="#" class="del_suffix">删除</a>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                http
+            </td>
+            <td>
+                <a data="http" href="#" class="del_suffix">删除</a>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                https
+            </td>
+            <td>
+                <a data="https" href="#" class="del_regexp">删除</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
 <script type="text/javascript" src="js/jquery-1.8.3.js"></script>
 <script type="text/javascript" src="js/options.js"></script>
 </body>

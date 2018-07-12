@@ -136,7 +136,7 @@ function show_detail(url,key){
 }
 
 function show_detail_data(or_data,key){
-	var result;
+	var result='';
 	var str;
 	var temp;
 	var location=new Array();
