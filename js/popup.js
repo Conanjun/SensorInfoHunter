@@ -131,6 +131,7 @@ function init_config() {
             execlude.push(value.execlude[i]);
         }
     });
+    //console.log(suffix,regexp,execlude);
 }
 
 function test() {
@@ -144,13 +145,14 @@ function test() {
 $(document).on("click",".show_detail",function(){
     var or_url=$(this).attr('data');
     var url;
-    var key;
+    var key=$(this).attr('key');
     for(var i=0;i<data_storage_url.length;i++){
         if(data_storage_url[i].or_url==or_url){
             url=data_storage_url[i].url;
-            key=data_storage_url[i].key;
+            
         }
     }
+    //console.log(data_storage_url[i]);
     /*for(var i=0;i<data_storage_location.length;i++){
         if(data_storage_location[i].or_url==or_url){
             location.push({

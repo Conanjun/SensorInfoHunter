@@ -67,13 +67,13 @@ function get_regexp(url,or_url,data){
 			}
 			
 		}*/
-		for(var i=0; i<regexp.length; i++){
-			var reg = new RegExp(regexp[i],"gi");
+		for(var i=0; i<regexp[0].length; i++){
+			var reg = new RegExp(regexp[0][i],"gi");
 			//console.log(reg);
 			var match;
 			data_storage_url.push({
 				'or_url':or_url,
-				'key':regexp[i],
+				'key':regexp[0][i],
 				'url':url
 			});
 			url_re.push(url);
@@ -81,17 +81,17 @@ function get_regexp(url,or_url,data){
 			  //console.log(match.index + ' ' + reg.lastIndex);
 			  data_storage_location.push({
 			  	'or_url':or_url,
-				'key':regexp[i],
+				'key':regexp[0][i],
 				'flocation':match.index,
 				'llocation':reg.lastIndex
 			  });
 			  num++;
 			}
 			//console.log(num);
-			show_data(or_url,regexp[i],num);
+			show_data(or_url,regexp[0][i],num);
 			data_storage_num.push({
 				'or_url':or_url,
-				'key':regexp[i],
+				'key':regexp[0][i],
 				'num':num,
 			});
 			num = 0;
@@ -102,9 +102,12 @@ function get_regexp(url,or_url,data){
 			//console.log(reg_url1);
 			var k=reg_url1.exec(data);
 			//console.log(url_re);
+			
 			if(k!=null){
 				//console.log(k[0]);
+
 				if($.inArray(k[0],url_re) == -1 ){
+					url_re.push(k[0]);
 					request(k[0],k[0]);
 					//console.log(k);
 				}
@@ -119,7 +122,7 @@ function get_regexp(url,or_url,data){
 
 function show_data(or_url,key,num){
 	if(num!=0){
-    	var label='<li><a href="#" data='+or_url+' class="show_detail"><label>key['+key+']-num['+num+'] {'+or_url+'}</label></a></li>';
+    	var label='<li><a href="#" data='+or_url+' key='+key+' class="show_detail"><label>key['+key+']-num['+num+'] {'+or_url+'}</label></a></li>';
     	$('.result_box').append(label);
 	}
 }
@@ -127,7 +130,7 @@ function show_data(or_url,key,num){
 function show_detail(url,key){
 	var xhr = new XMLHttpRequest();
 	xhr.onload = function(e) {
-		show_detail_data(xhr.response,key);
+		show_detail_data(xhr.response,key,url);
 		
 	}
 	xhr.open("GET", url,true);
@@ -135,12 +138,14 @@ function show_detail(url,key){
 	xhr.send();
 }
 
-function show_detail_data(or_data,key){
+function show_detail_data(or_data,key,url){
 	var result='';
-	var str;
+	var str='<font style="color:#FF7A17">{'+url+'}</font>\r\n';
 	var temp;
 	var location=new Array();
-	data=or_data.replace(/</g,"&it").replace(/>/g,"&gt");
+	data=or_data.replace(/</g,"&lt;").replace(/>/g,"&gt;");
+	/*console.log(data);
+	console.log(key);*/
 	var reg = new RegExp(key,"gi");
 	var match;
 	while (match = reg.exec(data)) {
@@ -151,8 +156,9 @@ function show_detail_data(or_data,key){
 			  });
 			  
 		}
+	//console.log(location);
 	var lnum=location.length;
-	str='<span>'+data.substring(0,location[0].flocation)+'</span>';
+	str+='<span>'+data.substring(0,location[0].flocation)+'</span>';
 	result+=str;
 	
 	for(var i=0;i<lnum;i++){
